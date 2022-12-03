@@ -1,0 +1,35 @@
+.locations {
+  margin: 20px;
+}
+
+.citylist {
+  background-color: rgba($color: #7932f5, $alpha: 0.2);
+  margin: auto;
+  padding: 10px;
+  border-radius: 10px;
+  width: 300px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  display: flex;
+  flex-direction: column;
+}
+.citylist .cities {
+  display: flex;
+  margin: 20px;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: rgba($color: #000000, $alpha: 0.4);
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+a {
+  text-decoration: none;
+}
+.city {
+  font-size: 20px;
+  color: white;
+}
+.city:hover {
+  background-color: rgba($color: #000000, $alpha: 0.2);
+  transform: scale(1.05);
+}
