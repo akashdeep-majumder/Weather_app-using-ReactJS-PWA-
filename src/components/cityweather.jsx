@@ -4,8 +4,8 @@ import { Grid } from 'react-loader-spinner';
 import HorizontalScroll from 'react-horizontal-scrolling';
 import '../styles/tempcurrent.scss';
 import SearchIcon from '@mui/icons-material/Search';
-import Day from '../Backgrounds/c02d.mp4';
-import Night3 from '../Backgrounds/0150fc53.mp4';
+import Day from '../Backgrounds/c02d.gif';
+import Night3 from '../Backgrounds/0150fc53.gif';
 import getFormattedWeathebitData from '../config/apiConfig';
 import { getFormattedAccuWeatherData } from '../config/apiConfig';
 
@@ -46,14 +46,6 @@ const TempCurrent = () => {
     value: getSearchForecastWeatherFromLS(),
   });
 
-  // const currentWeatherData = JSON.parse(
-  //   localStorage.getItem('search-currentweather')
-  // );
-  // const forecastWeatherData = JSON.parse(
-  //   localStorage.getItem('search-forecastweather')
-  // );
-  // console.log(currentWeatherData);
-  // console.log(forecastWeatherData);
   const cityKey = JSON.parse(localStorage.getItem('search-citykey'));
   const cityName = JSON.parse(localStorage.getItem('search-cityname'));
 
@@ -126,13 +118,9 @@ const TempCurrent = () => {
       ) : (
         <div>
           {currentWeatherData.value.IsDayTime ? (
-            <video autoPlay loop muted className="backgroundVid">
-              <source src={Day} type="video/mp4" />
-            </video>
+            <img className="backgroundVid" src={Day}></img>
           ) : (
-            <video autoPlay loop muted className="backgroundVid">
-              <source src={Night3} type="video/mp4" />
-            </video>
+            <img className="backgroundVid" src={Night3}></img>
           )}
           {currentWeatherData.value && currentWeatherData.value.length !== 0 ? (
             <div className="weather">

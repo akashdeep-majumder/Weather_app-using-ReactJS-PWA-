@@ -4,8 +4,8 @@ import HorizontalScroll from 'react-horizontal-scrolling';
 import { Outlet, Link } from 'react-router-dom';
 import '../styles/current.scss';
 import SearchIcon from '@mui/icons-material/Search';
-import Day from '../Backgrounds/c02d.mp4';
-import Night3 from '../Backgrounds/0150fc53.mp4';
+import Day1 from '../Backgrounds/c02d.gif';
+import night from '../Backgrounds/0150fc53.gif';
 import getFormattedWeathebitData from '../config/apiConfig';
 import { getFormattedAccuWeatherData } from '../config/apiConfig';
 
@@ -93,13 +93,9 @@ const Current = (props) => {
       ) : (
         <div>
           {currentLocationWeatherData.value.IsDayTime ? (
-            <video autoPlay loop muted className="background">
-              <source src={Day} type="video/mp4" />
-            </video>
+            <img className="background" src={Day1}></img>
           ) : (
-            <video autoPlay loop muted className="background">
-              <source src={Night3} type="video/mp4" />
-            </video>
+            <img className="background" src={night}></img>
           )}
 
           {currentLocationWeatherData.value &&
