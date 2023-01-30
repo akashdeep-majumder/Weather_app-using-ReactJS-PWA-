@@ -5,7 +5,7 @@ const WEATHERBIT_BASE_URL = 'https://api.weatherbit.io/v2.0';
 const ACCU_BASE_URL = 'https://dataservice.accuweather.com';
 
 // const WEATHERBIT_API_KEY = '5740e53489b24237a2b0e596de541545';
-const WEATHERBIT_API_KEY = '54efcc687ecd42c29d14c40b870160bd';
+const WEATHERBIT_API_KEY = '23eaba0a13e14cc483fe2c901a6a4953';
 const ACCU_API_KEY = '28OvMnLjhvkXS2vmAiQNvJsAVopAJxeN';
 // const ACCU_API_KEY = 'DWJf5AcDFqPqMW66OGwR6kF0wPGjac3c';
 
