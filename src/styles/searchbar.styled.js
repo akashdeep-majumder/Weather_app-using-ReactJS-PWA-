@@ -41,7 +41,7 @@ export const DataResult = styled.section`
   width: 250px;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  background-color: ${(props) => props.theme.colors.sDark};
+  color: black;
   border-radius: 10px;
 
   &::-webkit-scrollbar {
