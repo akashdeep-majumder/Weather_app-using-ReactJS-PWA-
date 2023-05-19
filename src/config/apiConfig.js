@@ -4,7 +4,7 @@ import { DateTime } from 'luxon';
 const WEATHERBIT_BASE_URL = 'https://api.weatherbit.io/v2.0';
 const ACCU_BASE_URL = 'https://dataservice.accuweather.com';
 
-const WEATHERBIT_API_KEY = 'c684f98efac741fea6917c5415673f08';
+const WEATHERBIT_API_KEY = '27178ae6f8a84cfdaaf8c9fa0d935d6c';
 
 // const ACCU_API_KEY = 'hApGgMzUbGtOL4Uz3DITMv4k3LBKgQJ1';
 const ACCU_API_KEY = 'KpLRbIOiSFqME9U6ysveGGyxPRAy7ZvZ';
