@@ -40,9 +40,26 @@ const getSearchCityName = () => {
     return [];
   }
 };
+const getWeatherBitApiKey = () => {
+  let weatherBitApiKey = localStorage.getItem('weatherBitApiKey');
+  if (weatherBitApiKey) {
+    return JSON.parse(localStorage.getItem('weatherBitApiKey'));
+  } else {
+    return '';
+  }
+};
+const getKeyValidationFromLS = () => {
+  let apiKeyValid = localStorage.getItem('apiKeyValid');
+  if (apiKeyValid) {
+    return JSON.parse(localStorage.getItem('apiKeyValid'));
+  } else {
+    return false;
+  }
+};
 
 const initialState = {
   darkMode: false,
+  weatherBitApiKey: getWeatherBitApiKey(),
   latitude: '',
   longitude: '',
   locationCityKey: getLocationCityKey(),
@@ -52,6 +69,7 @@ const initialState = {
   searchCityKey: getSearchCityKey(),
   searchCityName: getSearchCityName(),
   savedLocationList: getSavedLocationList(),
+  apiKeyValid: getKeyValidationFromLS(),
 };
 const homeSlice = createSlice({
   name: 'home',
@@ -113,11 +131,23 @@ const homeSlice = createSlice({
         JSON.stringify(state.savedLocationList)
       );
     },
+    updateWeatherBitApiKey: (state, action) => {
+      state.weatherBitApiKey = action.payload;
+      localStorage.setItem(
+        'weatherBitApiKey',
+        JSON.stringify(state.weatherBitApiKey)
+      );
+    },
+    updateApiValidation: (state, action) => {
+      state.apiKeyValid = action.payload;
+      localStorage.setItem('apiKeyValid', JSON.stringify(state.apiKeyValid));
+    },
   },
 });
 
 export const {
   changeMode,
+  updateWeatherBitApiKey,
   updateLatitude,
   updateLongitude,
   updateLocationCityKey,
@@ -129,6 +159,7 @@ export const {
   updateSearchCityKey,
   updateSearchCityName,
   updateSavedLocationList,
+  updateApiValidation,
 } = homeSlice.actions;
 
 export default homeSlice.reducer;

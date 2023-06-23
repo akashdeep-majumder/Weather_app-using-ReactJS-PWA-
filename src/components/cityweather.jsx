@@ -33,14 +33,17 @@ const TempCurrent = () => {
   const { cityCurrentWeather, cityForecastWeather, loading } = useSelector(
     (store) => store.cityWeather
   );
-  const { searchCityKey, searchCityName, savedLocationList, darkMode } =
-    useSelector((state) => state.home);
+  const {
+    searchCityKey,
+    searchCityName,
+    savedLocationList,
+    darkMode,
+    weatherBitApiKey,
+  } = useSelector((state) => state.home);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(searchCityKey);
-    console.log(searchCityName);
     const fetchData = async () => {
       dispatch(handleLoading(true));
 
@@ -50,9 +53,12 @@ const TempCurrent = () => {
         }
       );
 
-      const forecastData = await getFormattedWeathebitData({
-        city: searchCityName,
-      }).then((res) => {
+      const forecastData = await getFormattedWeathebitData(
+        {
+          city: searchCityName,
+        },
+        weatherBitApiKey
+      ).then((res) => {
         dispatch(handleCityForecastWeather(res));
         dispatch(handleLoading(false));
       });
@@ -99,7 +105,7 @@ const TempCurrent = () => {
               <Navbar>
                 <div>
                   <div>
-                    <Link to="/">
+                    <Link to="/home">
                       <SearchIcon
                         sx={{ color: 'white' }}
                         style={{ padding: '5px' }}

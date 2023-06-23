@@ -4,11 +4,7 @@ import { DateTime } from 'luxon';
 const WEATHERBIT_BASE_URL = 'https://api.weatherbit.io/v2.0';
 const ACCU_BASE_URL = 'https://dataservice.accuweather.com';
 
-const WEATHERBIT_API_KEY = '27178ae6f8a84cfdaaf8c9fa0d935d6c';
-
-// const ACCU_API_KEY = 'hApGgMzUbGtOL4Uz3DITMv4k3LBKgQJ1';
 const ACCU_API_KEY = 'KpLRbIOiSFqME9U6ysveGGyxPRAy7ZvZ';
-// const ACCU_API_KEY = 'DWJf5AcDFqPqMW66OGwR6kF0wPGjac3c';
 
 const getAccuWeatherWeatherData = async (
   infoType,
@@ -26,7 +22,6 @@ const getAccuWeatherWeatherData = async (
 };
 
 const formatCurrentWeatherData = (res) => {
-  console.log(res);
   let {
     IsDayTime,
     Temperature,
@@ -66,11 +61,11 @@ const getFormattedAccuWeatherData = async (location_key, searchParams) => {
   return { ...CurrentWeatherData };
 };
 
-const getWeatherbitWeatherData = async (infoType, searchParams) => {
+const getWeatherbitWeatherData = async (infoType, searchParams, apiKey) => {
   const url = new URL(WEATHERBIT_BASE_URL + '/' + infoType);
   url.search = new URLSearchParams({
     ...searchParams,
-    key: WEATHERBIT_API_KEY,
+    key: apiKey,
   });
 
   const res = await axios.get(url);
@@ -113,10 +108,11 @@ const formatForecastData = (res) => {
   });
   return { timezone, daily };
 };
-const getFormattedWeathebitData = async (searchParams) => {
+const getFormattedWeathebitData = async (searchParams, apiKey) => {
   const formattedAqiData = await getWeatherbitWeatherData(
     'current/airquality',
-    searchParams
+    searchParams,
+    apiKey
   ).then(formatAqiData);
 
   const formattedHourlyData = await getWeatherbitWeatherData(
@@ -124,12 +120,14 @@ const getFormattedWeathebitData = async (searchParams) => {
     {
       city: searchParams.city,
       hours: 25,
-    }
+    },
+    apiKey
   ).then(formatHourlyData);
 
   const formattedForecastData = await getWeatherbitWeatherData(
     'forecast/daily',
-    searchParams
+    searchParams,
+    apiKey
   ).then(formatForecastData);
 
   return {

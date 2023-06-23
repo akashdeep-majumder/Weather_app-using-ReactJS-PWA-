@@ -1,17 +1,20 @@
 import Locations from './components/home';
 import Current from './components/currentlocationweather';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import TempCurrent from './components/cityweather';
 import { useEffect } from 'react';
 import { getFormattedGeoLocationData } from './config/apiConfig';
 import { useSelector, useDispatch } from 'react-redux';
 import {
+  updateApiValidation,
   updateLatitude,
   updateLocationCityKey,
   updateLocationCityName,
   updateLongitude,
 } from './features/home/homeSlice';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import LandingPage from './components/landingPage';
+import axios from 'axios';
 
 const Globalstyles = createGlobalStyle`
 body{
@@ -44,7 +47,8 @@ const darkTheme = {
 };
 
 const App = () => {
-  const { latitude, longitude, darkMode } = useSelector((store) => store.home);
+  const { latitude, longitude, darkMode, weatherBitApiKey, apiKeyValid } =
+    useSelector((store) => store.home);
 
   const dispatch = useDispatch();
 
@@ -72,12 +76,48 @@ const App = () => {
     fetchCurrentLocationData();
   }, [latitude]);
 
+  useEffect(() => {
+    keyValidation();
+  }, []);
+
+  const checkApiKey = () => {
+    const data = axios
+      .get(
+        `https://api.weatherbit.io/v2.0/current/airquality?city=Bengaluru&key=${weatherBitApiKey}`
+      )
+      .then(() => {
+        dispatch(updateApiValidation(true));
+      })
+      .catch(() => {
+        dispatch(updateApiValidation(false));
+      });
+  };
+
+  const keyValidation = () => {
+    if (weatherBitApiKey.length !== 32) {
+      dispatch(updateApiValidation(false));
+    } else if (weatherBitApiKey.length === 32) {
+      checkApiKey();
+    }
+  };
+
   return (
     <ThemeProvider theme={darkMode ? darkTheme : theme}>
       <Globalstyles />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Locations />} />
+          <Route
+            path="/"
+            element={
+              apiKeyValid ? (
+                <Navigate to="/home" />
+              ) : (
+                <Navigate to="/keyValidation" />
+              )
+            }
+          />
+          <Route path="/keyValidation" element={<LandingPage />} />
+          <Route path="/home" element={<Locations />} />
           <Route path="/currentlocation/:name" element={<Current />}></Route>
           <Route path="/city/:name" element={<TempCurrent />} />
         </Routes>

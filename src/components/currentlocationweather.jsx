@@ -27,9 +27,8 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { changeMode } from '../features/home/homeSlice';
 
 const Current = (props) => {
-  const { locationCityKey, locationCityName, darkMode } = useSelector(
-    (state) => state.home
-  );
+  const { locationCityKey, locationCityName, darkMode, weatherBitApiKey } =
+    useSelector((state) => state.home);
   const { locationCurrentWeather, locationForecastWeather, flag } = useSelector(
     (state) => state.locationWeather
   );
@@ -46,9 +45,12 @@ const Current = (props) => {
         dispatch(handleLocationCurrentWeather(res));
       });
 
-      const forecastData = await getFormattedWeathebitData({
-        city: locationCityName,
-      }).then((res) => {
+      const forecastData = await getFormattedWeathebitData(
+        {
+          city: locationCityName,
+        },
+        weatherBitApiKey
+      ).then((res) => {
         dispatch(handleLocationForecastWeather(res));
         dispatch(handleFlag(false));
       });
@@ -73,7 +75,7 @@ const Current = (props) => {
               <Navbar>
                 <div>
                   <div>
-                    <Link to="/">
+                    <Link to="/home">
                       <SearchIcon
                         sx={{ color: 'white' }}
                         style={{ padding: '5px' }}
