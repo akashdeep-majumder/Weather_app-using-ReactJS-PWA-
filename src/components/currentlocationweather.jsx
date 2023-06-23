@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Grid } from 'react-loader-spinner';
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet, Link, useNavigate } from 'react-router-dom';
 import {
   Loading,
   MainContainer,
@@ -27,13 +27,19 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { changeMode } from '../features/home/homeSlice';
 
 const Current = (props) => {
-  const { locationCityKey, locationCityName, darkMode, weatherBitApiKey } =
-    useSelector((state) => state.home);
+  const {
+    locationCityKey,
+    locationCityName,
+    darkMode,
+    weatherBitApiKey,
+    apiKeyValid,
+  } = useSelector((state) => state.home);
   const { locationCurrentWeather, locationForecastWeather, flag } = useSelector(
     (state) => state.locationWeather
   );
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCurrentLocationWeather = async () => {
@@ -61,6 +67,12 @@ const Current = (props) => {
   const changeDarkMode = () => {
     dispatch(changeMode(darkMode));
   };
+
+  useEffect(() => {
+    if (apiKeyValid === false) {
+      navigate('/keyValidation');
+    }
+  }, [apiKeyValid]);
 
   return (
     <MainContainer>

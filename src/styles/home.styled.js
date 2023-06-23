@@ -44,4 +44,18 @@ export const StyledLandingPage = styled.section`
     cursor: pointer;
     border-left: 0.5px solid black;
   }
+  @media only screen and (max-width: 492px) {
+    .input {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      button {
+        width: 100px;
+        border: none;
+        border-radius: 10px;
+        margin: 5px;
+      }
+    }
+  }
 `;

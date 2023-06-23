@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet, Link, useNavigate } from 'react-router-dom';
 import { Grid } from 'react-loader-spinner';
 import {
   Loading,
@@ -39,9 +39,11 @@ const TempCurrent = () => {
     savedLocationList,
     darkMode,
     weatherBitApiKey,
+    apiKeyValid,
   } = useSelector((state) => state.home);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -91,6 +93,12 @@ const TempCurrent = () => {
 
     dispatch(updateSavedLocationList(uniqueCityList));
   };
+
+  useEffect(() => {
+    if (apiKeyValid === false) {
+      navigate('/keyValidation');
+    }
+  }, [apiKeyValid]);
 
   return (
     <MainContainer>

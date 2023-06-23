@@ -8,14 +8,14 @@ import { Navbar } from '../styles/weather.styled';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { changeMode } from '../features/home/homeSlice';
 import { RotatingLines } from 'react-loader-spinner';
+import { useEffect } from 'react';
 
 const Locations = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { locationCityKey, locationCityName, darkMode } = useSelector(
-    (state) => state.home
-  );
+  const { locationCityKey, locationCityName, darkMode, apiKeyValid } =
+    useSelector((state) => state.home);
 
   const handleCurrenLocation = () => {
     navigate('/currentlocation/' + locationCityName);
@@ -24,6 +24,12 @@ const Locations = () => {
   const changeDarkMode = () => {
     dispatch(changeMode(darkMode));
   };
+
+  useEffect(() => {
+    if (apiKeyValid === false) {
+      navigate('/keyValidation');
+    }
+  }, [apiKeyValid]);
 
   return (
     <StyledHome>
